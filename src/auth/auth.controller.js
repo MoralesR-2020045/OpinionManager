@@ -1,5 +1,6 @@
 import User from "../user/user.models.js"
 import {hash, verify} from "argon2"
+import { generateJWT } from "../helpers/generate-jwt.js";
 
 export const register = async (req, res) => {
     try{
@@ -20,5 +21,48 @@ export const register = async (req, res) => {
             message: "User registration failed",
             error: err.message
         });
+    }
+}
+
+
+export const login = async (req, res) => {
+    try{
+        const {username, email, password} =req.body
+        const user = await User.findOne({
+            $or:[{username: username}, {email: email}]
+        })
+
+        if(!user){
+            return res.status(400).json({
+                message: "Invalidated credentials",
+                error:"The username or email entered does not exist"
+            })
+        }
+
+        const validPassword = await verify(user.password, password)
+
+        if(!validPassword){
+            return res.status(400).json({
+                message: "Invalidated credentials",
+                error: "incorrect password"
+            })
+        }
+
+        const token = await generateJWT(user.id)
+
+        return res.status(200).json({
+            message: "Login successful",
+            userDetails: {
+                name: user.name,
+                usernmae: user.username,
+                token: token,
+            }
+        })
+
+    }catch(err){
+        return res.status(500).json({
+            message: "error when logging in",
+            error: err.message
+        })
     }
 }

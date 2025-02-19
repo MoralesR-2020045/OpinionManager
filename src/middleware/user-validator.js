@@ -20,4 +20,11 @@ export const validatorRegister = [
     }).withMessage("The password must contain at least 8 characters"),
     body("birthdate").isDate(),
     bodyValidator
-]
+];
+
+export const loginValidator = [
+    body("email").optional().isEmail().withMessage("It is not a valid email"),
+    body("username").optional().isString().withMessage("Username is in the wrong format"),
+    body("password").isLength({ min: 4 }).withMessage("The password must contain at least 8 characters"),
+    bodyValidator
+];
