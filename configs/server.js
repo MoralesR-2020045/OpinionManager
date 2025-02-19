@@ -6,6 +6,7 @@ import helmet from "helmet"
 import express from "express"
 import { dbConnection } from "./mongo.js"
 import routerAuth from "../src/auth/auth.routes.js"
+import routerUser from "../src/user/user.routes.js"
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended : false}));
@@ -17,8 +18,7 @@ const middlewares = (app) =>{
 
 const routes = (app) =>{
     app.use("/opinionManager/v1/auth", routerAuth);
-
-
+    app.use("/opinionManager/v1/user", routerUser);
 }
 
 const conectarDB = async () => {
