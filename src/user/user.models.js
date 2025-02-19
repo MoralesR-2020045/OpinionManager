@@ -39,6 +39,7 @@ const userSchema = Schema({
         type: Date
     },
     gender:{
+        type: String,
         default: "Indefinite"
     },
     profilePicture:{
