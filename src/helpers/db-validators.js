@@ -22,3 +22,11 @@ export const nameCategoryExists = async (name = "") =>{
     }
 }
 
+export const categoryExist = async (uid = "") =>{
+    const exists = await Category.findById(uid)
+    if(!exists){
+        throw new Error(`The uid has not been found`)
+    }
+
+}
+
