@@ -45,6 +45,10 @@ const userSchema = Schema({
     profilePicture:{
         type: String
     },
+    isAdmin:{
+        type: Boolean,
+        default: false
+    },
     status:{
         type: Boolean,
         default: true

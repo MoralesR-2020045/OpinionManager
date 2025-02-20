@@ -7,6 +7,7 @@ import express from "express"
 import { dbConnection } from "./mongo.js"
 import routerAuth from "../src/auth/auth.routes.js"
 import routerUser from "../src/user/user.routes.js"
+import { createAdmin } from "../src/auth/auth.controller.js"
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended : false}));
@@ -36,6 +37,7 @@ export const initServer = () =>{
         middlewares(app)
         conectarDB()
         routes(app)
+        createAdmin();
         app.listen(process.env.PORT)
         console.log(`Server running on port ${process.env.PORT}`)
     }catch(er){
