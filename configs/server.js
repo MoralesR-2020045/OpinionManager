@@ -7,6 +7,7 @@ import express from "express"
 import { dbConnection } from "./mongo.js"
 import routerAuth from "../src/auth/auth.routes.js"
 import routerUser from "../src/user/user.routes.js"
+import routerCategory from "../src/category/category.routes.js"
 import { createAdmin } from "../src/auth/auth.controller.js"
 
 const middlewares = (app) =>{
@@ -20,6 +21,7 @@ const middlewares = (app) =>{
 const routes = (app) =>{
     app.use("/opinionManager/v1/auth", routerAuth);
     app.use("/opinionManager/v1/user", routerUser);
+    app.use("/opinionManager/v1/category", routerCategory);
 }
 
 const conectarDB = async () => {

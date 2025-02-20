@@ -68,7 +68,7 @@ export const login = async (req, res) => {
 }
 
 
-export const createAdmin = async (req, res) =>{
+export const createAdmin = async () =>{
     try{    
         const adminExists = await User.findOne({username: "admin"});
 
