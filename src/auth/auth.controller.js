@@ -66,3 +66,26 @@ export const login = async (req, res) => {
         })
     }
 }
+
+
+export const createAdmin = async () =>{
+    try{    
+        const adminExists = await User.findOne({username: "admin"});
+
+        if(!adminExists){
+            const encryptPassword = await hash("1590Admin#");
+            await User.create({
+                name: "admin",
+                surname: "admin",
+                username: "admin",
+                email: "admin123@gmail.com",
+                password: encryptPassword,
+                isAdmin: true
+            })
+            console.log("Administrator has been created")
+        }
+    }catch(err){
+        console.error("Error creating administrador");
+        console.log(err);
+    }
+}
