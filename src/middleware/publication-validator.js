@@ -6,7 +6,7 @@ import { hasRoles } from "./validate-admin.js";
 
 export const addPublicationValidator = [
     validateJWT,
-    hasRoles("false"),
+    hasRoles(false),
     body("publicationtitle").notEmpty().withMessage("The title of the publication is required"),
     body("content").notEmpty().withMessage("Content needed for publication"),
     body("category").notEmpty().isMongoId().withMessage("It is not a valid id"),
@@ -16,13 +16,12 @@ export const addPublicationValidator = [
 
 export const updatePublicationValidator = [
     validateJWT,
-    hasRoles("false"),
+    hasRoles(false),
     param("uid").isMongoId().withMessage("It is not a valid id"),
     param("uid").custom(publicationExist),
     body("publicationtitle").optional(),
     body("content").optional(),
-    body("category").isMongoId().withMessage("It is not a valid id"),
-    body("category").optional().custom(categoryExist),
+    body("category").optional().isMongoId().withMessage("It is not a valid id").custom(categoryExist),
     bodyValidator
 
 ]

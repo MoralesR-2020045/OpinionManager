@@ -24,18 +24,19 @@ export const addPublication = async (req, res) => {
 
 export const updatePublication = async (req, res) =>{
     try{
-        const uid = req.params
+        const {uid} = req.params
         const {publicationtitle, content, category } = req.body
         if(!category){
-            await Publication.findByIdAndUpdate(uid, {publicationtitle: publicationtitle}, {content: content}, {new:true});
+            await Publication.findByIdAndUpdate(uid, { publicationtitle, content}, {new:true});
             return res.status(200).json({
                 message: "It has been successfully updated"
             })
         }
+        console.log(uid)
         if(category){
-            await Publication.findByIdAndUpdate(uid, {publicationtitle: publicationtitle}, {content: content}, {category: category},{new:true})
+            await Publication.findByIdAndUpdate(uid, { publicationtitle, content, category},{new:true})
             return res.status(200).json({
-                message: "It has been successfully updated"
+                message: "It has been successfully updated dea"
             })
         }
     }catch(err){
