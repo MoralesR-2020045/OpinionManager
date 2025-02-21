@@ -20,3 +20,26 @@ export const addComment = async (req, res) =>{
         });
     }
 }
+
+export const updateComment = async (req, res) => {
+    try {
+        const {_id} = req.usuario;
+        const { uid } = req.params;
+        const data = req.body;
+        const user = await Comment.findOne({usercomment: _id});
+
+        if(user){
+            await Comment.findByIdAndUpdate(uid, data, { new: true });
+        }
+
+        return res.status(200).json({
+            msg: 'The category has been edited correctly',
+            name: category.name,
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error update category",
+            error: err.message
+        })
+    }
+}
