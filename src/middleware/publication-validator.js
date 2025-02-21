@@ -1,5 +1,5 @@
 import {body, param} from "express-validator";
-import {categoryExist } from "../helpers/db-validators.js";
+import {categoryExist, publicationExist } from "../helpers/db-validators.js";
 import {bodyValidator} from "./document-validator.js"
 import { validateJWT } from "./validate-jwt.js";
 import { hasRoles } from "./validate-admin.js";
@@ -12,4 +12,17 @@ export const addPublicationValidator = [
     body("category").notEmpty().isMongoId().withMessage("It is not a valid id"),
     body("category").custom(categoryExist),
     bodyValidator
+];
+
+export const updatePublicationValidator = [
+    validateJWT,
+    hasRoles("false"),
+    param("uid").isMongoId().withMessage("It is not a valid id"),
+    param("uid").custom(publicationExist),
+    body("publicationtitle").optional(),
+    body("content").optional(),
+    body("category").isMongoId().withMessage("It is not a valid id"),
+    body("category").optional().custom(categoryExist),
+    bodyValidator
+
 ]

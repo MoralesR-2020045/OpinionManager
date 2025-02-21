@@ -16,7 +16,7 @@ export const updateUser = async(req, res)=>{
                 })
             }  
             const encryptPassword = await hash(passwordNew);
-            const update = await User.findByIdAndUpdate(_id, {username: username, password: encryptPassword}, {new:true});
+            await User.findByIdAndUpdate(_id, {username: username, password: encryptPassword}, {new:true});
             return res.status(200).json({
                 message: "successful update"
             })

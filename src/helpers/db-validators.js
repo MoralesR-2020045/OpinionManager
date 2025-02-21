@@ -1,5 +1,6 @@
 import Category from "../category/category.models.js"
 import User from "../user/user.models.js"
+import Publication from "../publication/publication.model.js"
 
 export const emailExists = async (email = "") => {
     const existe = await User.findOne({email})
@@ -27,6 +28,12 @@ export const categoryExist = async (uid = "") =>{
     if(!exists){
         throw new Error(`The uid has not been found`)
     }
+}
 
+export const  publicationExist = async (uid = "") =>{   
+    const exists = await Publication.findById(uid)
+    if(!exists){
+        throw new Error("Publication does not exist")
+    }
 }
 

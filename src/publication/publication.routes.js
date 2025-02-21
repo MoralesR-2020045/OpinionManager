@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { addPublicationValidator } from "../middleware/publication-validator.js";
-import { uploadProfilePicture } from "../middleware/multer-uploads.js";
-import {addPublication} from "../publication/publication.controller.js"
+import { addPublicationValidator, updatePublicationValidator } from "../middleware/publication-validator.js";
+import {addPublication, updatePublication} from "../publication/publication.controller.js"
 const router = Router()
 
-router.post("/addPublication", uploadProfilePicture.single("publicationPicture"), addPublicationValidator, addPublication);
+router.post("/addPublication", addPublicationValidator, addPublication);
 
+router.put("/updatePublication/:uid", updatePublicationValidator, updatePublication )
 export default router

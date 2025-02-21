@@ -16,7 +16,6 @@ const publicationSchema = Schema({
     userpublication:[{
         type: Schema.Types.ObjectId,
         ref: 'User'
-
     }],
     publicationdate:{
         type: Date, 
@@ -26,9 +25,6 @@ const publicationSchema = Schema({
         type: Schema.Types.ObjectId,
         ref:'Category'
     }],
-    publicationPicture:{
-        type: String
-    },
     status:{
         type: Boolean,
         default: true
