@@ -14,7 +14,7 @@ const publicationSchema = Schema({
         maxLength: [30, "Content cannot exced 30 characters"]
     },
     userpublication:[{
-        type: mongose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
 
     }],
@@ -23,13 +23,8 @@ const publicationSchema = Schema({
         default: Date.now
     },
     category:[{
-        type: mongose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:'Category'
-    }],
-    comment:[{
-        type: mongose.Schema.Types.ObjectId,
-        ref: 'Comment'
-
     }],
     publicationPicture:{
         type: String

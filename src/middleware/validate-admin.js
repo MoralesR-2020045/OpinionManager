@@ -7,10 +7,10 @@ export const hasRoles = (...roles) => {
             })
         }
 
-        if (!req.usuario.isAdmin) {
+        if (!roles === req.usuario.isAdmin) {
             return res.status(401).json({
                 success: false,
-                message: `El servicio requiere uno de estos roles`
+                message: `No tienes accesos a esa funcion`
             })
         }
         next()
