@@ -24,4 +24,12 @@ export const updatePublicationValidator = [
     body("category").optional().isMongoId().withMessage("It is not a valid id").custom(categoryExist),
     bodyValidator
 
+];
+
+
+export const validatorDeletePublication =[
+    validateJWT,
+    hasRoles(false),
+    param("uid").isMongoId().withMessage("No es un ID válido"),
+    param("uid").custom(publicationExist),
 ]

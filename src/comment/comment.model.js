@@ -11,11 +11,11 @@ const commentSchema = Schema({
         required: [true, "Comment is required"],
         maxLength: [500, "Name cannot exced 500 characters"]
     },
-    publicationcomment:[{
+    publicationcomment:{
         type: Schema.Types.ObjectId, 
         required: true,
         ref: 'Publication',
-    }],
+    },
     commentdate:{
         type: Date, 
         default: Date.now
