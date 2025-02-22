@@ -9,7 +9,7 @@ import routerAuth from "../src/auth/auth.routes.js"
 import routerUser from "../src/user/user.routes.js"
 import routerCategory from "../src/category/category.routes.js"
 import { createAdmin } from "../src/auth/auth.controller.js"
-
+import { defaultCategory } from "../src/category/category.controller.js"
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended : false}));
     app.use(express.json());
@@ -40,6 +40,7 @@ export const initServer = () =>{
         conectarDB()
         routes(app)
         createAdmin();
+        defaultCategory();
         app.listen(process.env.PORT)
         console.log(`Server running on port ${process.env.PORT}`)
     }catch(er){
