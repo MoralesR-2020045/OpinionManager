@@ -46,3 +46,49 @@ export const updatePublication = async (req, res) =>{
         })
     }
 }
+
+
+export const deletePublication = async (req, res) => {
+    try{
+        const { uid } = req.params
+        await Publication.findByIdAndUpdate(uid, {status: false}, {new: true})
+        
+        return res.status(200).json({
+            success: true,
+            message: "Delete Publication",
+        })
+    }catch(err){
+        return res.status(500).json({
+            success: false,
+            message: "Error delete category",
+            error: err.message
+        })
+    }
+}
+
+export const getPublication = async (req, res) => {
+    try{
+        const { limite = 10, desde = 0 } = req.query
+
+        const query = {}
+
+        const [total, publications ] = await Promise.all([
+            Publication.countDocuments(query),
+            Publication.find(query)
+                .skip(Number(desde))
+                .limit(Number(limite))
+        ])
+
+        return res.status(200).json({
+            success: true,
+            total,
+            publications
+        })
+    }catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Error getting list of categories",
+            error: error.message
+        })
+    }
+}

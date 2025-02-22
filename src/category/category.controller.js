@@ -63,7 +63,7 @@ export const deleteCategory = async (req, res) => {
         );
         return res.status(200).json({
             success: true,
-            message: "Curso eliminado",
+            message: "Delete Category",
         })
     }catch(err){
         return res.status(500).json({
