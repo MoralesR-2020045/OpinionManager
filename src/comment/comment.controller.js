@@ -25,20 +25,21 @@ export const updateComment = async (req, res) => {
     try {
         const {_id} = req.usuario;
         const { uid } = req.params;
-        const data = req.body;
-        const user = await Comment.findOne({usercomment: _id});
+        const {comment} = req.body;
+        const objectComment = await Comment.findById({_id: uid});
 
-        if(user){
-            await Comment.findByIdAndUpdate(uid, data, { new: true });
+        if(_id.equals(objectComment.usercomment)){
+            const update = await Comment.findByIdAndUpdate(uid, { comment:comment }, { new: true });
+            
+            return res.status(200).json({
+                message: "Was updated",
+                update
+            });
         }
 
-        return res.status(200).json({
-            msg: 'The category has been edited correctly',
-            name: category.name,
-        });
     } catch (err) {
         return res.status(500).json({
-            message: "Error update category",
+            message: "Error update comment",
             error: err.message
         })
     }

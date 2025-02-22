@@ -1,11 +1,11 @@
 import {Schema, model} from "mongoose";
 
 const commentSchema = Schema({
-    usercomment:[{
+    usercomment:{
         type: Schema.Types.ObjectId, 
         ref: 'User',
         required: true,
-    }],
+    },
     comment:{
         type: String, 
         required: [true, "Comment is required"],
@@ -15,7 +15,6 @@ const commentSchema = Schema({
         type: Schema.Types.ObjectId, 
         required: true,
         ref: 'Publication',
-        unique: true,
     }],
     commentdate:{
         type: Date, 

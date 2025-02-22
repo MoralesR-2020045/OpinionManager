@@ -14,3 +14,11 @@ export const validationAddComment =[
     body("publicationcomment").custom(publicationExist),
     bodyValidator
 ];
+
+export const validationUpdateComment = [
+    validateJWT,
+    hasRoles(false),
+    param("uid").isMongoId().withMessage("It is not a valid id"),
+    body("comment").notEmpty().withMessage("Comment is required"),
+    bodyValidator
+]
