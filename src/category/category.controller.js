@@ -1,5 +1,22 @@
 import Category from "./category.models.js";
 
+
+export const defaultCategory = async () =>{
+    try{    
+        const categoryExists = await Category.findOne({name: "General"});
+
+        if(!categoryExists){
+            await Category.create({
+                name: "General",
+                description: "Categoria general donde se alamacenan publicaciones de categoria general",
+            })
+        }
+    }catch(err){
+        console.error("Error creating administrador");
+        console.log(err);
+    }
+}
+
 export const addCategory = async (req, res) => {
     try {
         const data = req.body
