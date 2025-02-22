@@ -44,3 +44,48 @@ export const updateComment = async (req, res) => {
         })
     }
 }
+
+export const deleteComment = async (req, res) => {
+    try{
+        const { uid } = req.params
+        await Comment.findByIdAndUpdate(uid, {status: false}, {new: true})
+        
+        return res.status(200).json({
+            success: true,
+            message: "Delete Comment",
+        })
+    }catch(err){
+        return res.status(500).json({
+            success: false,
+            message: "Error delete Comment",
+            error: err.message
+        })
+    }
+}
+
+export const getComment = async (req, res) => {
+    try{
+        const { limite = 10, desde = 0 } = req.query
+
+        const query = {status: true}
+
+        const [total, comment ] = await Promise.all([
+            Comment.countDocuments(query),
+            Comment.find(query)
+                .skip(Number(desde))
+                .limit(Number(limite))
+        ])
+
+        return res.status(200).json({
+            success: true,
+            total,
+            comment
+        })
+    }catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Error getting list of comment",
+            error: error.message
+        })
+    }
+}

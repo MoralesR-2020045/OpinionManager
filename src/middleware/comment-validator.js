@@ -1,7 +1,7 @@
 import { body, param } from "express-validator";
 import { bodyValidator } from "./document-validator.js";
 import { validateJWT } from "./validate-jwt.js";
-import { publicationExist } from "../helpers/db-validators.js";
+import { commentExist, publicationExist } from "../helpers/db-validators.js";
 import { hasRoles } from "./validate-admin.js";
 
 
@@ -21,4 +21,11 @@ export const validationUpdateComment = [
     param("uid").isMongoId().withMessage("It is not a valid id"),
     body("comment").notEmpty().withMessage("Comment is required"),
     bodyValidator
+]
+
+export const validatorDeleteComment=[
+    validateJWT,
+    hasRoles(false),
+    param("uid").isMongoId().withMessage("No es un ID válido"),
+    param("uid").custom(commentExist),
 ]

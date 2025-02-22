@@ -60,7 +60,7 @@ export const deletePublication = async (req, res) => {
     }catch(err){
         return res.status(500).json({
             success: false,
-            message: "Error delete category",
+            message: "Error delete Publication",
             error: err.message
         })
     }
@@ -70,7 +70,7 @@ export const getPublication = async (req, res) => {
     try{
         const { limite = 10, desde = 0 } = req.query
 
-        const query = {}
+        const query = {status: true}
 
         const [total, publications ] = await Promise.all([
             Publication.countDocuments(query),
@@ -87,7 +87,7 @@ export const getPublication = async (req, res) => {
     }catch(error){
         return res.status(500).json({
             success: false,
-            message: "Error getting list of categories",
+            message: "Error getting list of Publication",
             error: error.message
         })
     }
