@@ -1,6 +1,6 @@
 'use strict'
 
-import morgan from "morgan"
+import morgan from "morgan";
 import cors from "cors"
 import helmet from "helmet"
 import express from "express"
@@ -12,6 +12,9 @@ import routerPublication from "../src/publication/publication.routes.js"
 import routerComment from "../src/comment/comment.routes.js"
 import { createAdmin } from "../src/auth/auth.controller.js"
 import { defaultCategory } from "../src/category/category.controller.js"
+import { swaggerDocs, swaggerUi } from "./swagger.js";
+
+
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended : false}));
     app.use(express.json());
@@ -26,6 +29,8 @@ const routes = (app) =>{
     app.use("/opinionManager/v1/category", routerCategory);
     app.use("/opinionManager/v1/publication", routerPublication);
     app.use("/opinionManager/v1/comment", routerComment);
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+
 }
 
 const conectarDB = async () => {
