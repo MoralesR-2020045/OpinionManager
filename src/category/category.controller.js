@@ -1,4 +1,5 @@
 import Category from "./category.models.js";
+import Publication from "../publication/publication.model.js";
 
 
 export const defaultCategory = async () =>{
@@ -46,6 +47,28 @@ export const updateCategory = async (req, res) => {
     } catch (err) {
         return res.status(500).json({
             message: "Error update category",
+            error: err.message
+        })
+    }
+}
+
+export const deleteCategory = async (req, res) => {
+    try{
+        const { uid } = req.params
+        const uidDefault = await Category.findOne({name: "General"})
+        await Category.findByIdAndUpdate(uid, {status: false}, {new: true})
+        await Publication.updateMany(
+            { category: uid }, 
+            { $set: { category: uidDefault._id } } 
+        );
+        return res.status(200).json({
+            success: true,
+            message: "Curso eliminado",
+        })
+    }catch(err){
+        return res.status(500).json({
+            success: false,
+            message: "Error al eliminar el usuario",
             error: err.message
         })
     }

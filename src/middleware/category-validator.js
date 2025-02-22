@@ -23,3 +23,10 @@ export const validatorUpdateCategory = [
     body("name").optional().custom(nameCategoryExists),
     bodyValidator
 ]
+
+export const validatorDeleteCategory =[
+    validateJWT,
+    hasRoles("true"),
+    param("uid").isMongoId().withMessage("No es un ID válido"),
+    param("uid").custom(categoryExist),
+]
