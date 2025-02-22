@@ -13,18 +13,18 @@ const publicationSchema = Schema({
         minLength: [3, "Content needs more than 3 characters"],
         maxLength: [800, "Content cannot exced 30 characters"]
     },
-    userpublication:[{
+    userpublication:{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }],
+    },
     publicationdate:{
         type: Date, 
         default: Date.now
     },
-    category:[{
+    category:{
         type: Schema.Types.ObjectId,
         ref:'Category'
-    }],
+    },
     status:{
         type: Boolean,
         default: true

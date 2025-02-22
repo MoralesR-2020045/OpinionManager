@@ -4,6 +4,6 @@ import { updateUser } from "./user.controller.js";
 
 const router = Router()
 
-router.patch("/updateCredentials", validateCredentialsUpdate, updateUser);
+router.put("/updateCredentials", validateCredentialsUpdate, updateUser);
 
 export default router

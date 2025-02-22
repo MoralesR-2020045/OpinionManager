@@ -9,8 +9,9 @@ import routerAuth from "../src/auth/auth.routes.js"
 import routerUser from "../src/user/user.routes.js"
 import routerCategory from "../src/category/category.routes.js"
 import routerPublication from "../src/publication/publication.routes.js"
+import routerComment from "../src/comment/comment.routes.js"
 import { createAdmin } from "../src/auth/auth.controller.js"
-
+import { defaultCategory } from "../src/category/category.controller.js"
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended : false}));
     app.use(express.json());
@@ -23,7 +24,8 @@ const routes = (app) =>{
     app.use("/opinionManager/v1/auth", routerAuth);
     app.use("/opinionManager/v1/user", routerUser);
     app.use("/opinionManager/v1/category", routerCategory);
-    app.use("/opinionManager/v1/publication", routerPublication)
+    app.use("/opinionManager/v1/publication", routerPublication);
+    app.use("/opinionManager/v1/comment", routerComment);
 }
 
 const conectarDB = async () => {
@@ -42,6 +44,7 @@ export const initServer = () =>{
         conectarDB()
         routes(app)
         createAdmin();
+        defaultCategory();
         app.listen(process.env.PORT)
         console.log(`Server running on port ${process.env.PORT}`)
     }catch(er){
