@@ -23,7 +23,7 @@ export const updateCategory = async (req, res) => {
         const category = await Category.findByIdAndUpdate(uid, data, { new: true });
         
         return res.status(200).json({
-            msg: 'The category has been edited correctly',
+            message: 'The category has been edited correctly',
             name: category.name,
         });
     } catch (err) {
